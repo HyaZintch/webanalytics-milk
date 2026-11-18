@@ -1,0 +1,79 @@
+SPRECHER-TRANSSKRIPT: PERSON 3
+Thema: Datenanalyse, Handlungsempfehlungen, Offene Herausforderungen & DISKUSSION
+Folien: 14 bis 18 + Anhang (Schritt 5 & Schritt 6)
+Geplante Redezeit: ca. 5:00 bis 5:30 Minuten (danach Übergang in die 10–15 Min. Gruppendiskussion)
+
+================================================================================
+[FOLIE 14: Schritt 5 – Datenanalyse: Der Conversion Funnel]
+================================================================================
+"Danke [Name von Person 2]! Kommen wir zu Schritt 5: Der Datenanalyse und den daraus abgeleiteten Optimierungsmaßnahmen.
+
+Auf Basis unserer Messpunkte haben wir den Weg von der Studiengangsseite bis zur fertigen Bewerbung in einem exemplarischen Conversion-Funnel modelliert:
+- Ausgangspunkt sind 10.000 Aufrufe der Studiengangsseite (100 %).
+- 1.500 Personen klicken auf den Link zur Onlinebewerbung (15 % CTA-Klickrate).
+- Davon registrieren sich 800 Personen im Bewerbungssystem (8 %).
+- 450 Personen laden ihre Dokumente wie Lebenslauf und Zeugnisse hoch (4,5 %).
+- Und schließlich schicken 200 Bewerberinnen und Bewerber die Bewerbung vollständig ab (2,0 % Gesamtrate).
+
+Der wichtigste Befund dieser Analyse:
+Der massivste Verlust von Interessierten findet ganz am Anfang statt – 85 Prozent springen ab, ohne überhaupt auf 'Jetzt bewerben' geklickt zu haben. Und selbst von jenen, die den Prozess starten, bricht vor dem finalen Absenden noch einmal mehr als die Hälfte ab."
+
+(Weiter zu Folie 15)
+
+
+================================================================================
+[FOLIE 15: Schritt 5 – Segmentanalyse: Mobil vs. Desktop]
+================================================================================
+"Besonders aufschlussreich wird die Analyse, wenn wir unsere Zielgruppen-Segmente vergleichen:
+Mehr als die Hälfte aller Besuche (5.500 von 10.000) erfolgt über mobile Endgeräte wie Smartphones.
+Aber: Die CTA-Klickrate auf Mobilgeräten liegt mit nur 12 Prozent rund ein Drittel unter der Desktop-Rate von 19 Prozent!
+
+Dieser signifikante Unterschied zeigt uns eine klare Schwachstelle auf mobilen Geräten – und bestätigt genau die Dringlichkeit unseres SMART-Nutzerziels, nämlich die mobile Performance und Usability drastisch zu verbessern."
+
+(Weiter zu Folie 16)
+
+
+================================================================================
+[FOLIE 16: Schritt 5 – Konkrete Handlungsempfehlungen]
+================================================================================
+"Welche konkreten Handlungsempfehlungen leiten wir daraus für die FH JOANNEUM ab?
+
+1. Mobile Performance optimieren:
+Durch komprimierte Bildformate, Caching und Skript-Verschlankung müssen wir den Largest Contentful Paint (LCP) auf Mobilgeräten stabil unter 2,5 Sekunden halten, um Frustabrisse zu vermeiden.
+
+2. Den Call-to-Action sichtbarer und kontextnäher platzieren:
+Der 'Jetzt bewerben'-Button muss direkt neben der anstehenden Bewerbungsfrist positioniert werden – genau so, wie wir es in unserem Prototyp bereits umgesetzt haben.
+
+3. Eine transparente Unterlagen-Checkliste direkt auf der Studiengangsseite:
+Viele Bewerber brechen im Registrierungs-Portal ab, weil sie nicht wissen, welche Dokumente gefordert sind. Wenn wir die Checkliste vorab präsentieren, senken wir die Einstiegshürde im Portal deutlich."
+
+(Weiter zu Folie 17)
+
+
+================================================================================
+[FOLIE 17: Schritt 6 – Offene Herausforderungen]
+================================================================================
+"Abschließend möchten wir in Schritt 6 noch kritisch auf die offenen methodischen Herausforderungen eingehen:
+
+Erstens: Die Einwilligungsquote (Consent Gap).
+Wer den Banner ablehnt, taucht in den Zahlen nicht auf. Wir messen also nie 100 % der Realität.
+
+Zweitens: Das externe Bewerbungssystem.
+Sobald Bewerber von fh-joanneum.at auf das externe JOANNEUM Online Portal wechseln, liegt eine Domaingrenze vor. Ein sauberes Cross-Domain-Tracking ist technisch und datenschutzrechtlich anspruchsvoll.
+
+Drittens: Saisonale Schwankungen.
+Die Zugriffe explodieren kurz vor Bewerbungsfristen. Das macht Vorher-Nachher-Vergleiche ohne langfristige Vorjahresdaten schwierig."
+
+(Weiter zu Folie 18)
+
+
+================================================================================
+[FOLIE 18: Schritt 6 – Offene Diskussion mit der Gruppe]
+================================================================================
+"Damit möchten wir in die gemeinsame Diskussionsrunde starten und würden gerne folgende drei Fragen an euch und das Plenum richten:
+
+1. Wie würdet ihr in der Praxis mit der Messlücke durch abgelehnte Cookie-Banner umgehen – würdet ihr serverseitiges cookieloses Tracking ergänzen?
+2. Haltet ihr unser Unternehmensziel einer 15 % relativen Steigerung der Conversion Rate für realistisch bemessen?
+3. Und welche KPI fehlt eurer Meinung nach in unserem Set, oder welche würdet ihr streichen?
+
+Vielen Dank für eure Aufmerksamkeit – wir freuen uns auf euer Feedback und eure Fragen!"

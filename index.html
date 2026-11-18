@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Software Design &amp; Cloud Computing (BSc) | FH JOANNEUM – Web Analytics Prototyp</title>
+  <!-- Amplitude Analytics Browser SDK (v2) -->
+  <script src="https://cdn.amplitude.com/libs/analytics-browser-2.11.1-min.js.gz"></script>
   <style>
     :root {
       --fh-red: #e2001a;
@@ -602,7 +604,7 @@
       background: var(--fh-gray-100);
     }
 
-    /* LIVE GA4 INSPECTOR DRAWER FOR CLASS DEMO */
+    /* LIVE AMPLITUDE INSPECTOR DRAWER FOR CLASS DEMO */
     .ga-inspector {
       position: fixed;
       bottom: 16px;
@@ -920,7 +922,7 @@
             </select>
           </div>
           <p class="privacy-hint">
-            🔒 <strong>Datenschutz-Hinweis (Datenminimierung):</strong> Beim Absenden wird in Google Analytics 4
+            🔒 <strong>Datenschutz-Hinweis (Datenminimierung):</strong> Beim Absenden wird in Amplitude Analytics
             lediglich das anonyme Event <code>form_submit</code> (ohne Namen oder E-Mail-Adresse) erfasst – und
             auch das nur nach Ihrer aktiven Cookie-Einwilligung.
           </p>
@@ -954,14 +956,14 @@
     <div class="consent-modal">
       <h2 id="consentTitle">Datenschutz- &amp; Cookie-Einstellungen (DSGVO / TKG)</h2>
       <p>
-        Wir würden gerne <strong>Google Analytics 4 (GA4)</strong> einsetzen, um zu verstehen, wie Studieninteressierte
+        Wir würden gerne <strong>Amplitude Analytics</strong> einsetzen, um zu verstehen, wie Studieninteressierte
         unsere Studiengangsseite nutzen (z. B. Klicks auf „Jetzt bewerben“, PDF-Downloads, Scrolltiefe und Ladezeit LCP),
         damit wir den Weg zur Onlinebewerbung verbessern können.
       </p>
       <div class="consent-details">
         <strong>Unsere Datenschutz-Garantien (Schritt 4):</strong><br />
-        • <strong>Kein Tracking ohne Einwilligung:</strong> Vor Ihrer Zustimmung werden keine Analyse-Skripte geladen und keine Cookies gesetzt.<br />
-        • <strong>IP-Anonymisierung &amp; Datenminimierung:</strong> IP-Adressen werden gekürzt; Formulareingaben (Name/E-Mail) werden niemals an GA4 übertragen.<br />
+        • <strong>Kein Tracking ohne Einwilligung:</strong> Vor Ihrer Zustimmung werden keine Analyse-Skripte initialisiert und keine Cookies gesetzt.<br />
+        • <strong>IP-Anonymisierung &amp; Datenminimierung:</strong> IP-Adressen werden nicht verarbeitet; Formulareingaben (Name/E-Mail) werden niemals an Amplitude übertragen.<br />
         • <strong>Jederzeitiger Widerruf:</strong> Sie können Ihre Entscheidung jederzeit im Footer unter „Cookie-Einstellungen“ widerrufen.
       </div>
       <div class="consent-actions">
@@ -969,129 +971,149 @@
           Ablehnen (Kein Tracking)
         </button>
         <button type="button" class="btn-consent btn-consent-accept" onclick="setConsent(true)">
-          Alle akzeptieren (GA4 aktivieren)
+          Alle akzeptieren (Amplitude aktivieren)
         </button>
       </div>
     </div>
   </div>
 
-  <!-- LIVE GA4 DEMO INSPECTOR (For in-class live presentation) -->
+  <!-- LIVE AMPLITUDE DEMO INSPECTOR (For in-class live presentation) -->
   <div id="gaInspector" class="ga-inspector">
     <div class="ga-inspector-header" onclick="toggleInspector()">
-      <span class="ga-inspector-title">📊 GA4 Live-Demo Monitor</span>
+      <span class="ga-inspector-title">📊 Amplitude Live-Demo Monitor</span>
       <span id="inspectorToggleLabel">▼ Minimieren</span>
     </div>
     <div class="ga-inspector-body">
       <div class="ga-id-row">
-        <input type="text" id="gaMeasurementIdInput" value="G-P722VVXG8W" placeholder="GA4 Mess-ID (G-XXXXXXXXXX)" title="Trage hier eure echte GA4 Mess-ID ein" />
-        <button type="button" onclick="updateMeasurementId()">ID speichern</button>
+        <input type="text" id="amplitudeApiKeyInput" value="5d5391da281ba4724ecdfbae4cc3a7cd" placeholder="Amplitude API Key" title="Amplitude API Key" />
+        <button type="button" onclick="updateApiKey()">Key speichern</button>
       </div>
       <div style="margin-bottom:6px;display:flex;justify-content:space-between;color:#9ca3af;">
-        <span>Ausgelöste Events (`dataLayer` / `gtag`):</span>
+        <span>Ausgelöste Events (Amplitude SDK):</span>
         <button type="button" onclick="clearInspectorLog()" style="background:none;border:none;color:#60a5fa;cursor:pointer;font-size:0.72rem;">Leeren</button>
       </div>
-      <div id="gaLogList" class="ga-log-list"></div>
+      <div id="amplitudeLogList" class="ga-log-list"></div>
     </div>
   </div>
 
-  <!-- GOOGLE ANALYTICS 4 + CONSENT & EVENT LOGIC -->
+  <!-- AMPLITUDE ANALYTICS + CONSENT & EVENT LOGIC -->
   <script>
     // =========================================================================
-    // 1. KONFIGURATION: Hier könnt ihr eure echte GA4 Mess-ID direkt eintragen
+    // 1. KONFIGURATION: Amplitude API Key
     // =========================================================================
-    const DEFAULT_GA4_ID = localStorage.getItem('fh_proto_ga4_id') || 'G-P722VVXG8W';
-    const CONSENT_STORAGE_KEY = 'fh_proto_ga4_consent'; // 'granted' | 'denied' | null
+    const DEFAULT_AMPLITUDE_KEY = '5d5391da281ba4724ecdfbae4cc3a7cd';
+    const CONSENT_STORAGE_KEY = 'fh_proto_amplitude_consent'; // 'granted' | 'denied' | null
 
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      window.dataLayer.push(arguments);
-    }
-
-    let gaScriptLoaded = false;
+    let isAmplitudeInitialized = false;
     let scrollTracked50 = false;
     let scrollTracked75 = false;
 
     // Initialize UI
-    document.getElementById('gaMeasurementIdInput').value = DEFAULT_GA4_ID;
-
-    function getMeasurementId() {
-      return (document.getElementById('gaMeasurementIdInput').value || DEFAULT_GA4_ID).trim();
+    const apiKeyInput = document.getElementById('amplitudeApiKeyInput');
+    const storedApiKey = localStorage.getItem('fh_proto_amplitude_key') || DEFAULT_AMPLITUDE_KEY;
+    if (apiKeyInput) {
+      apiKeyInput.value = storedApiKey;
     }
 
-    function updateMeasurementId() {
-      const newId = getMeasurementId();
-      localStorage.setItem('fh_proto_ga4_id', newId);
-      logToInspector('CONFIG', 'GA4 Mess-ID gesetzt auf: ' + newId, false);
+    function getApiKey() {
+      const input = document.getElementById('amplitudeApiKeyInput');
+      return (input && input.value ? input.value : storedApiKey).trim();
+    }
+
+    function updateApiKey() {
+      const newKey = getApiKey();
+      localStorage.setItem('fh_proto_amplitude_key', newKey);
+      logToInspector('CONFIG', 'Amplitude API Key gesetzt auf: ' + newKey, false);
       if (localStorage.getItem(CONSENT_STORAGE_KEY) === 'granted') {
-        loadGoogleAnalytics(newId);
+        initAmplitude(newKey);
       }
     }
 
     // =========================================================================
-    // 2. DYNAMISCHES LADEN VON GA4 NUR NACH EINWILLIGUNG (OPT-IN)
+    // 2. INITIALISIERUNG VON AMPLITUDE NUR NACH EINWILLIGUNG (OPT-IN)
     // =========================================================================
-    function loadGoogleAnalytics(measurementId) {
-      // Google Consent Mode v2 Signale auf granted setzen
-      gtag('consent', 'update', {
-        analytics_storage: 'granted',
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied'
-      });
-
-      if (!gaScriptLoaded) {
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(measurementId);
-        document.head.appendChild(script);
-        gaScriptLoaded = true;
+    function initAmplitude(apiKey) {
+      if (!window.amplitude || typeof window.amplitude.init !== 'function') {
+        logToInspector('WARN', 'Amplitude SDK wird geladen...', false);
+        setTimeout(function() { initAmplitude(apiKey); }, 150);
+        return;
       }
 
-      gtag('js', new Date());
-      gtag('config', measurementId, {
-        anonymize_ip: true, // Expliziter Hinweis (in GA4 zudem standardmäßig aktiv)
-        debug_mode: true    // Damit Events sofort im GA4 DebugView aufscheinen
-      });
+      // Opt-Out aufheben falls vorher gesetzt
+      if (typeof window.amplitude.setOptOut === 'function') {
+        window.amplitude.setOptOut(false);
+      }
 
-      logToInspector('page_view', { page_title: document.title, send_to: measurementId }, false);
+      window.amplitude.init(apiKey, {
+        defaultTracking: {
+          pageViews: true,
+          sessions: true,
+          formInteractions: false,
+          fileDownloads: false
+        }
+      });
+      isAmplitudeInitialized = true;
+
+      // Initialen Page View tracken & im Monitor anzeigen
+      if (typeof window.amplitude.track === 'function') {
+        window.amplitude.track('page_view', {
+          page_title: document.title,
+          page_location: window.location.href,
+          page_path: window.location.pathname
+        });
+      }
+      logToInspector('page_view', { page_title: document.title, api_key: apiKey }, false);
       measureAndSendLCP();
     }
 
-    function disableGoogleAnalytics(measurementId) {
-      // Google Consent Mode widerrufen
-      gtag('consent', 'update', {
-        analytics_storage: 'denied'
-      });
+    function disableAmplitude() {
+      if (window.amplitude && typeof window.amplitude.setOptOut === 'function') {
+        window.amplitude.setOptOut(true);
+        if (typeof window.amplitude.reset === 'function') {
+          window.amplitude.reset();
+        }
+      }
+      isAmplitudeInitialized = false;
 
-      // GA-Disable Flag setzen
-      window['ga-disable-' + measurementId] = true;
-
-      // Vorhandene _ga Cookies löschen
+      // Cookies loeschen (insbesondere AMP_ und amplitude Cookies)
       document.cookie.split(';').forEach(function(c) {
         const cookieName = c.split('=')[0].trim();
-        if (cookieName.startsWith('_ga')) {
+        if (cookieName.startsWith('AMP_') || cookieName.startsWith('amp_') || cookieName.startsWith('_ga') || cookieName.startsWith('amplitude')) {
           document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         }
       });
+
+      // LocalStorage / SessionStorage Eintraege fuer Amplitude bereinigen
+      try {
+        Object.keys(localStorage).forEach(function(k) {
+          if (k.startsWith('AMP_') || k.startsWith('amp_') || k.startsWith('amplitude') || k.startsWith('fh_proto_ga4')) {
+            localStorage.removeItem(k);
+          }
+        });
+        Object.keys(sessionStorage).forEach(function(k) {
+          if (k.startsWith('AMP_') || k.startsWith('amp_') || k.startsWith('amplitude')) {
+            sessionStorage.removeItem(k);
+          }
+        });
+      } catch (e) {}
     }
 
     // =========================================================================
     // 3. CONSENT-MANAGEMENT (AKZEPTIEREN / ABLEHNEN / WIDERRUFEN)
     // =========================================================================
     function setConsent(isGranted) {
-      const measurementId = getMeasurementId();
+      const apiKey = getApiKey();
       if (isGranted) {
         localStorage.setItem(CONSENT_STORAGE_KEY, 'granted');
-        window['ga-disable-' + measurementId] = false;
         updateConsentIndicator('granted');
         closeConsentBanner();
-        logToInspector('CONSENT', 'Einwilligung ERTEILT → GA4 wird geladen', false);
-        loadGoogleAnalytics(measurementId);
+        logToInspector('CONSENT', 'Einwilligung ERTEILT → Amplitude wird initialisiert', false);
+        initAmplitude(apiKey);
       } else {
         localStorage.setItem(CONSENT_STORAGE_KEY, 'denied');
         updateConsentIndicator('denied');
         closeConsentBanner();
-        disableGoogleAnalytics(measurementId);
+        disableAmplitude();
         logToInspector('CONSENT', 'Einwilligung ABGELEHNT / WIDERRUFEN → Tracking blockiert, Cookies gelöscht', true);
       }
     }
@@ -1110,7 +1132,7 @@
       dot.className = 'status-dot';
       if (state === 'granted') {
         dot.classList.add('active');
-        text.textContent = 'Aktiv (GA4 Einwilligung erteilt)';
+        text.textContent = 'Aktiv (Amplitude Einwilligung erteilt)';
       } else if (state === 'denied') {
         dot.classList.add('denied');
         text.textContent = 'Deaktiviert (Abgelehnt / Widerrufen)';
@@ -1120,23 +1142,24 @@
     }
 
     // =========================================================================
-    // 4. ZENTRALE EVENT-TRACKING-FUNKTION FÜR DIE 4 DEFINIERTEN EVENTS
+    // 4. ZENTRALE EVENT-TRACKING-FUNKTION FÜR DIE 5 DEFINIERTEN EVENTS
     // =========================================================================
-    function trackGA4Event(eventName, eventParams) {
+    function trackAmplitudeEvent(eventName, eventProperties) {
       const consentState = localStorage.getItem(CONSENT_STORAGE_KEY);
       if (consentState !== 'granted') {
         logToInspector(eventName + ' (BLOCKIERT)', 'Keine Einwilligung – Event wurde NICHT gesendet', true);
         return;
       }
 
-      const paramsWithDebug = Object.assign({}, eventParams, { debug_mode: true });
-      gtag('event', eventName, paramsWithDebug);
-      logToInspector(eventName, paramsWithDebug, false);
+      if (window.amplitude && typeof window.amplitude.track === 'function') {
+        window.amplitude.track(eventName, eventProperties);
+      }
+      logToInspector(eventName, eventProperties, false);
     }
 
     // Event 1: cta_click ("Jetzt bewerben")
     function handleCtaClick(buttonLocation) {
-      trackGA4Event('cta_click', {
+      trackAmplitudeEvent('cta_click', {
         button_location: buttonLocation,
         program_name: 'Software Design & Cloud Computing',
         target_step: 'JOANNEUM_Online_Bewerbung'
@@ -1149,8 +1172,8 @@
       const interestType = document.getElementById('interestType').value;
       const educationBg = document.getElementById('educationBg').value;
 
-      // Wichtig für Datenschutz (Schritt 4): Name & E-Mail werden NICHT mitgeschickt!
-      trackGA4Event('form_submit', {
+      // Wichtig für Datenschutz: Name & E-Mail werden NICHT mitgeschickt!
+      trackAmplitudeEvent('form_submit', {
         form_name: 'info_and_application_request',
         selected_interest: interestType,
         education_category: educationBg,
@@ -1164,7 +1187,7 @@
 
     // Event 3: file_download (Infobroschüre Bewerbung & Aufnahme)
     function handleFileDownload(fileName) {
-      trackGA4Event('file_download', {
+      trackAmplitudeEvent('file_download', {
         file_name: fileName,
         file_extension: 'pdf',
         content_type: 'Infobroschuere_Bewerbung_Aufnahme'
@@ -1181,21 +1204,21 @@
 
       if (scrollPercent >= 50 && !scrollTracked50) {
         scrollTracked50 = true;
-        trackGA4Event('scroll_depth', {
+        trackAmplitudeEvent('scroll_depth', {
           percent_scrolled: 50,
           page_section: 'curriculum_and_requirements'
         });
       }
       if (scrollPercent >= 75 && !scrollTracked75) {
         scrollTracked75 = true;
-        trackGA4Event('scroll_depth', {
+        trackAmplitudeEvent('scroll_depth', {
           percent_scrolled: 75,
           page_section: 'application_checklist_and_download'
         });
       }
     }, { passive: true });
 
-    // Zusatz für das Nutzerziel (Schritt 2): Largest Contentful Paint (LCP) messen
+    // Event 5: Largest Contentful Paint (LCP) messen
     function measureAndSendLCP() {
       if (!('PerformanceObserver' in window)) return;
       try {
@@ -1204,7 +1227,7 @@
           const lastEntry = entries[entries.length - 1];
           if (lastEntry) {
             const lcpSeconds = +(lastEntry.startTime / 1000).toFixed(2);
-            trackGA4Event('web_vitals_lcp', {
+            trackAmplitudeEvent('web_vitals_lcp', {
               lcp_seconds: lcpSeconds,
               meets_user_goal: lcpSeconds <= 2.5
             });
@@ -1221,7 +1244,8 @@
     // 5. LIVE-INSPECTOR FÜR DIE PRÄSENTATION IM HÖRSAAL
     // =========================================================================
     function logToInspector(eventName, details, isBlocked) {
-      const list = document.getElementById('gaLogList');
+      const list = document.getElementById('amplitudeLogList');
+      if (!list) return;
       const item = document.createElement('div');
       item.className = 'ga-log-item';
       const now = new Date().toLocaleTimeString('de-AT', { hour12: false });
@@ -1236,7 +1260,8 @@
     }
 
     function clearInspectorLog() {
-      document.getElementById('gaLogList').innerHTML = '';
+      const list = document.getElementById('amplitudeLogList');
+      if (list) list.innerHTML = '';
     }
 
     function toggleInspector() {
@@ -1253,8 +1278,8 @@
       const savedConsent = localStorage.getItem(CONSENT_STORAGE_KEY);
       if (savedConsent === 'granted') {
         updateConsentIndicator('granted');
-        logToInspector('INIT', 'Gespeicherte Einwilligung gefunden → GA4 aktiv', false);
-        loadGoogleAnalytics(getMeasurementId());
+        logToInspector('INIT', 'Gespeicherte Einwilligung gefunden → Amplitude aktiv', false);
+        initAmplitude(getApiKey());
       } else if (savedConsent === 'denied') {
         updateConsentIndicator('denied');
         logToInspector('INIT', 'Einwilligung war abgelehnt → Kein Tracking aktiv', true);

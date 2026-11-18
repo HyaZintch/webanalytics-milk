@@ -1,0 +1,90 @@
+SPRECHER-TRANSKRIPT: PERSON 2
+Thema: Tool-Auswahl (Amplitude vs. GA4 & Matomo), DSGVO & EU-Residency, SDK-Tracking & LIVE-DEMO
+Folien: 10 bis 14 (Schritt 4)
+Geplante Redezeit: ca. 5:30 Minuten (inkl. ca. 2 Minuten Live-Demo im Browser)
+
+================================================================================
+[FOLIE 10: Schritt 4 – Tool-Auswahl: Warum Amplitude Analytics?]
+================================================================================
+"Vielen Dank [Name von Person 1]! In Schritt 4 widmen wir uns der technologischen Grundlage unserer Strategie: der Tool-Auswahl, dem Datenschutz und unserem interaktiven Prototyp.
+
+Für unsere Web-Analytics-Strategie haben wir uns ganz bewusst gegen traditionelle Web-Counter und für Amplitude Analytics entschieden.
+Warum Amplitude?
+Amplitude ist kein verstaubtes Klick-Statistik-Tool, sondern eine moderne, rein event-getriebene Product-Analytics-Plattform. Während klassische Systeme Webseiten als lose Ansammlung von 'Hits' und 'Pageviews' betrachten, modelliert Amplitude die Interaktion als kontinuierliche User Journey:
+Erstens: Benutzerzentriertes Behavioral Cohorting. Wir können auf Knopfdruck Segmente von Nutzern bilden, die z. B. die Infobroschüre heruntergeladen haben, aber nach 7 Tagen noch nicht auf 'Bewerben' geklickt haben.
+Zweitens: Out-of-the-box Funnel Conversion Charts. Wir definieren unsere Trichter in Sekundenschnelle, können flexible Conversion-Windows von Stunden bis Monaten einstellen und sehen die exakten Drop-Off-Schritte auf einen Blick.
+Drittens: Mit Pathfinder- und Retention-Analysen verstehen wir, welche Schleifen Interessierte vor einer Bewerbung drehen.
+Viertens: Modernste Entwickler-Erfahrung. Das neue Amplitude Browser SDK bietet nativen TypeScript-Support, ein sauberes, typsicheres Event-Property-Modell und verzögerungsfreies Real-Time Event Streaming.
+
+Im Vergleich dazu:
+Google Analytics 4 (GA4) entstand historisch aus dem Werbe- und Kampagnentracking. GA4 leidet unter einer notorisch unübersichtlichen Benutzeroberfläche, künstlichem Daten-Thresholding, bei dem Datenpunkte in Trichtern einfach ausgeblendet werden, und schwerfälligen Exploration-Berichten.
+Matomo bietet zwar volle Datenhoheit durch Self-Hosting, erfordert für die IT der FH aber immensen Wartungs- und Serveraufwand und stößt bei tiefen Product-Funnels und Kohortenvergleichen schnell an funktionale Grenzen.
+Amplitude verbindet das Beste aus beiden Welten: Maximale analytische Tiefe ohne Serverballast."
+
+(Weiter zu Folie 11)
+
+
+================================================================================
+[FOLIE 11: Schritt 4 – Datenschutz, DSGVO & Amplitude EU Data Residency]
+================================================================================
+"Als öffentliche Hochschule in Österreich steht Datenschutz nach DSGVO und TKG für uns an allererster Stelle. Wir haben daher ein kompromissloses 4-Säulen-Sicherheitskonzept implementiert:
+
+1. Amplitude EU Data Residency:
+Amplitude bietet ein dediziertes europäisches Rechenzentrum in Frankfurt am Main (AWS Region eu-central-1). Über den Parameter 'serverZone: EU' stellen wir sicher, dass alle Analyse- und Event-Daten physisch und rechtlich in der Europäischen Union gespeichert werden. Das eliminiert alle rechtlichen Grauzonen bezüglich Drittlandtransfers in die USA.
+
+2. Echtes Opt-In Consent Management:
+Vor der aktiven Einwilligung des Nutzers im DSGVO-Banner wird das Amplitude-SDK weder geladen noch initialisiert, und es werden keinerlei Cookies oder LocalStorage-Identifier gesetzt. Der Banner bietet 'Ablehnen' und 'Akzeptieren' mit exakt gleicher visueller Gewichtung an – ohne manipulative Dark Patterns.
+
+3. Widerruf in Echtzeit via setOptOut:
+Im Footer der Website befindet sich jederzeit ein Link zu den Cookie-Einstellungen. Bei einem Widerruf ruft unser Code sofort 'amplitude.setOptOut(true)' auf. Das Tracking stoppt augenblicklich und alle temporären Tokens werden gelöscht.
+
+4. IP-Maskierung & Strikte Datenminimierung (Zero PII):
+IP-Adressen werden standardmäßig maskiert. Zudem gilt das Prinzip der Datensparsamkeit: Wenn Interessierte unser Kontaktformular ausfüllen, filtern wir Namen, Telefonnummern und E-Mail-Adressen clientseitig heraus. In Amplitude landen ausschließlich anonymisierte Metadaten wie der gewählte Studiengang."
+
+(Weiter zu Folie 12 & 13)
+
+
+================================================================================
+[FOLIE 12 & 13: Schritt 4 – Prototyp & Technische Tracking-Dokumentation]
+================================================================================
+"Um unsere Strategie in der Realität zu erproben, haben wir eine voll funktionsfähige Landingpage für den FH-Masterstudiengang 'Software Design & Cloud Computing' entwickelt und öffentlich über GitHub Pages bereitgestellt.
+
+Im Code nutzen wir das offizielle Amplitude Browser SDK v2 mit unserem projektbezogenen API-Key '5d5391da281ba4724ecdfbae4cc3a7cd'.
+
+Unser standardisiertes Event-Schema umfasst fünf Custom Events:
+1. cta_click: Erfasst den Klick auf den Bewerbungs-Button mit Parametern wie 'button_location' (z. B. 'hero_primary' oder 'deadline_cta').
+2. form_submit: Misst das Absenden des Info-Anfrageformulars – übertragen werden nur 'degree_program' und 'education_category', absolut keine Personendaten.
+3. file_download: Protokolliert den Download der Infobroschüre als PDF.
+4. scroll_depth: Feuert automatisch bei 50 % und 75 % vertikaler Scrolltiefe.
+5. web_vitals_lcp: Ermittelt den clientseitigen Largest Contentful Paint zur Überwachung unseres SMART-Nutzerziels.
+
+Und wie sich dieses Zusammenspiel in der Praxis anfühlt, schauen wir uns jetzt direkt in einer Live-Demo im Browser an!"
+
+(Jetzt Bildschirm wechseln zum Browser mit der URL: https://hyazintch.github.io/webanalytics-milk/)
+
+
+================================================================================
+[FOLIE 14: LIVE-DEMO IM BROWSER – ca. 2 Minuten]
+================================================================================
+(Aktion 1: Seite im Browser öffnen)
+"Wir befinden uns hier auf unserer Prototyp-Seite. Achtet bitte auf den Consent-Banner und den integrierten Status-Monitor rechts unten: Das Tracking ist inaktiv, der Status steht auf Gelb 'Wartet auf Einwilligung'. Im Hintergrund wird kein einziges Datenpaket an Amplitude gesendet."
+
+(Aktion 2: Auf 'Alle akzeptieren' klicken)
+"Ich klicke jetzt auf 'Alle akzeptieren'. Der Banner schließt sich, der Monitor springt sofort auf Grün. In diesem Moment initialisiert das SDK mit der EU-Server-Zone Frankfurt und sendet den initialen Seitenaufruf."
+
+(Aktion 3: Interaktionen auslösen)
+"Nun simuliere ich den Pfad einer Studieninteressierten:
+- Zuerst klicke ich im Hero auf 'Jetzt für Studienstart Herbst bewerben ->' – im Monitor sehen wir sofort das Event 'cta_click' mit der Position 'hero_primary'.
+- Jetzt scrolle ich durch die Studieninhalte bis zur Checkliste – bei 50 % und 75 % der Seite feuert im Hintergrund automatisch 'scroll_depth'.
+- Hier drüben klicke ich auf 'PDF herunterladen' – die Broschüre öffnet sich und das Event 'file_download' wird protokolliert.
+- Schließlich wähle ich im Voranmelde-Formular 'Berufsbegleitend' und klicke auf Absenden – das Event 'form_submit' wird gefeuert, ohne dass die eingegebene E-Mail an Amplitude übermittelt wird."
+
+(Aktion 4: In den Amplitude Real-Time Event Stream wechseln)
+"Wechseln wir nun in unser Amplitude Dashboard in den 'User Activity / Live Event Stream':
+Hier sehen wir unsere Session in Echtzeit. Jeder Klick, jeder Scroll und der gemessene mobile LCP-Wert sind mit ihren vollständigen Properties sekundengenau und sauber strukturiert aufgeschlagen."
+
+(Aktion 5: Footer-Widerruf demonstrieren)
+"Zu guter Letzt scrolle ich in den Footer auf 'Cookie-Einstellungen' und klicke auf 'Widerrufen':
+Die Verbindung wird augenblicklich gekappt, 'setOptOut(true)' greift, und weitere Klicks auf der Seite lösen keinerlei Tracking-Requests mehr aus.
+
+Welche geschäftskritischen Erkenntnisse wir aus diesen Datenströmen für die FH JOANNEUM ableiten können, zeigt euch jetzt [Name von Person 3]."

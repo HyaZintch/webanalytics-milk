@@ -1,0 +1,104 @@
+SPRECHER-TRANSKRIPT: PERSON 1
+Thema: Einführung, Unternehmen, Zielgruppen, SMART-Ziele & KPIs (Amplitude Edition)
+Folien: 1 bis 9 (Schritt 1, Schritt 2 & Schritt 3)
+Geplante Redezeit: ca. 5:30 Minuten
+
+================================================================================
+[FOLIE 1: Titelblatt]
+================================================================================
+"Schönen Vormittag allerseits und herzlich willkommen zu unserer Präsentation im Fach Web Analytics!
+
+Mein Name ist [Dein Name], und gemeinsam mit meinem Team – Inas, Katharina, Lukas und Magdalena – haben wir für das erste Group Assignment eine praxisnahe und zukunftsfähige Web-Analytics-Strategie für die FH JOANNEUM entwickelt.
+
+Unser strategischer Fokus lautet: 'Von der Studiengangsseite zur Onlinebewerbung'. Wir zeigen heute, wie man den gesamten digitalen Weg von der ersten Studienorientierung bis zum verbindlichen Absenden der Bewerbung datenbasiert messen, verstehen und optimieren kann – und warum wir hierfür konsequent auf moderne Product Analytics mit Amplitude setzen."
+
+(Weiter zu Folie 2)
+
+
+================================================================================
+[FOLIE 2: Schritt 1 – Unternehmen und Website]
+================================================================================
+"Starten wir mit Schritt 1: dem Unternehmen und der Ausgangslage.
+
+Die FH JOANNEUM ist mit Standorten in Graz, Kapfenberg und Bad Gleichenberg eine der führenden Fachhochschulen in der Steiermark. Im Studienjahr 2024/25 durfte die FH knapp 2.000 Studienanfängerinnen und -anfänger begrüßen – das sind immerhin rund 8 Prozent aller FH-Erstsemestrigen in ganz Österreich.
+
+Die offizielle Website fh-joanneum.at ist das zentrale digitale Aushängeschild und der wichtigste Informationskanal für Interessierte. Laut Semrush-Schätzungen verzeichnet die Website durchschnittlich rund 266.000 Besuche pro Monat – der Großteil davon direkte Zugriffe und organische Google-Suchen.
+
+Unser strategischer Fokus liegt ganz bewusst auf der Kern-Schnittstelle: Studiengangsseite zur Onlinebewerbung. Genau hier entscheidet sich nämlich, ob aus einem unverbindlichen Besuch auch wirklich eine Immatrikulation wird – und genau an dieser Stelle stiftet moderne Web- und Product-Analytics den größten geschäftlichen Mehrwert."
+
+(Weiter zu Folie 3)
+
+
+================================================================================
+[FOLIE 3: Schritt 1 – Zielgruppen und Erfolgs-Interaktionen]
+================================================================================
+"Wer besucht diese Seiten überhaupt und woran erkennen wir Erfolg?
+
+Eine Studienentscheidung ist kein Impulskauf. Der Prozess dauert Wochen oder Monate. Primär sprechen wir Maturantinnen und Schulabgänger an, aber auch Berufstätige für berufsbegleitende Studiengänge, Eltern als einflussreiche Mitentscheider sowie internationale Studieninteressierte.
+
+Erfolg auf der Website teilen wir in zwei Ebenen ein:
+Unser übergeordnetes Hauptziel – die Macro-Conversion – ist die vollständig übermittelte Onlinebewerbung im Bewerberportal JOANNEUM Online.
+
+Da der Weg dorthin jedoch lang ist, steuern wir die Reise über aussagekräftige Micro-Conversions:
+Klickt jemand auf den Call-to-Action zur Onlinebewerbung? Startet jemand die Registrierung im Portal? Wird die offizielle Infobroschüre als PDF heruntergeladen, oder wird das Anfrageformular für ein Beratungsgespräch abgesendet? Genau diese Interaktionen zeigen uns echtes inhaltliches Engagement."
+
+(Weiter zu Folie 4)
+
+
+================================================================================
+[FOLIE 4: Schritt 2 – SMART-Ziele]
+================================================================================
+"In Schritt 2 haben wir dafür zwei präzise SMART-Ziele formuliert – eines aus Unternehmenssicht und eines aus Nutzersicht:
+
+1. Das Unternehmensziel:
+Wir wollen die Conversion Rate von der Studiengangsseite zur abgeschlossenen Onlinebewerbung um 15 Prozent relativ zur Baseline steigern. Der Erhebungszeitraum läuft von Herbst 2026 bis zum Ende der offiziellen Bewerbungsphase im Mai 2027. Bei einer Ausgangsbasis von beispielsweise 2,0 Prozent entspricht das einer Steigerung auf 2,3 Prozent – das klingt nach einem kleinen Schritt, bringt der FH im Studienbetrieb aber Dutzende zusätzliche qualifizierte Bewerberinnen und Bewerber.
+
+2. Das Nutzerziel – Schnell und barrierefrei mobil zum Ziel:
+Studieninteressierte informieren sich heute überwiegend am Smartphone. Unser Nutzerziel lautet daher: Bei mindestens 75 Prozent der mobilen Aufrufe muss der Largest Contentful Paint (LCP) unter 2,5 Sekunden liegen. Zudem soll die mediane Verweildauer bis zum Auffinden und Klick auf den Bewerbungs-Button unter 30 Sekunden betragen.
+
+Gemessen und ausgewertet werden beide Ziele automatisiert über unsere Event-Funnels in Amplitude Analytics."
+
+(Weiter zu Folie 5 & 6)
+
+
+================================================================================
+[FOLIE 5 & 6: Schritt 2 – Verhalten, Organisation & Zusammenspiel]
+================================================================================
+"Um diese Ziele zu überwachen, erfassen wir konkrete Verhaltensdaten: Neben den reinen Seitenaufrufen tracken wir Klicks zum Bewerberportal, Absendungen des Info-Formulars, Downloads der Broschüre, Scrolltiefen bei 50 % und 75 % sowie kontinuierlich die Web-Vitals-Ladezeiten.
+
+Organisatorisch schlagen wir vor, das Analytics-Team in der Abteilung PR & Marketing anzusiedeln. Warum? Weil dort die inhaltlichen Entscheidungen über Werbebudgets, Kampagnen, Bildungsangebote und Landingpage-Texte getroffen werden. Gleichzeitig arbeitet das Team in engem Schulterschluss mit der IT für das technische SDK-Tracking und mit dem Datenschutzbeauftragten für die DSGVO-Compliance.
+
+Dabei etablieren wir einen geschlossenen Kreislauf:
+Messen sauber nach Einwilligung -> Auswerten in Amplitudes Funnel- und Kohorten-Analysen -> Entscheiden über UX-Maßnahmen -> und Wirkung im nächsten Zyklus validieren."
+
+(Weiter zu Folie 7)
+
+
+================================================================================
+[FOLIE 7: Schritt 3 – Segmente und Größenschätzung]
+================================================================================
+"Kommen wir zu Schritt 3: Der Zielgruppen-Segmentierung und Datenplanung.
+
+Um Daten nicht im Durchschnitt ertrinken zu lassen, segmentieren wir nach Endgerät (Mobil vs. Desktop), nach Akquise-Kanal (Direkt, Google Suche, Social Media), nach Besuchertyp (Erstbesucher vs. Wiederkehrende) und nach Geografie (Österreich, DACH, International).
+
+Wie groß ist die reale Zielgruppe?
+Bei rund 266.000 Monatsbesuchen verzeichnet die FH ca. 3,2 Millionen Besuche im Jahr. 63 % davon sind direkte Aufrufe – primär bestehende Studierende und Bedienstete, die ins Webmail oder Moodle wollen.
+Ziehen wir diese ab, verbleiben rund 1,2 Millionen externe Besuche.
+Kalkulieren wir konservativ mit durchschnittlich 3 vertiefenden Besuchen pro interessierter Person während der mehrmonatigen Orientierungsphase, kommen wir auf eine Zielgruppe von rund 400.000 Studieninteressierten pro Jahr.
+Der Plausibilitäts-Check: Unsere knapp 2.000 tatsächlichen Studienanfängerinnen und -anfänger entsprechen etwa 0,5 Prozent dieser Zielgruppe – ein überaus solider, realistischer Trichter-Wert für den Hochschulsektor."
+
+(Weiter zu Folie 8 & 9)
+
+
+================================================================================
+[FOLIE 8 & 9: Schritt 3 – KPIs und Reporting-Zyklus]
+================================================================================
+"Daraus leiten wir ein schlankes Set aus sieben Kern-KPIs ab:
+Die Conversion Rate als oberste Macro-KPI, die CTA-Klickrate, die Portal-Abbruchrate, die Inhalts-Scrolltiefe bei 50 % und 75 %, die Broschüren-Downloads, der mobile LCP-Ladezeitwert und die Performance je Akquisekanal.
+
+Diese Daten fließen in einen dreistufigen Reporting-Zyklus:
+- Erstens, laufend: Ein operatives Real-Time Dashboard in Amplitude für das Web- und Online-Marketing-Team zur sofortigen Fehlererkennung bei Kampagnen oder Skript-Ausfällen.
+- Zweitens, monatlich: Ein Funnel- und Segmentbericht für die Studiengangsleitungen, um inhaltliche Drop-Offs der einzelnen Studiengänge zu besprechen.
+- Drittens, quartalsweise: Ein Strategie-Review für das Rektorat und die Geschäftsführung zur Priorisierung von Maßnahmen und Überprüfung unseres 15-%-Ziels.
+
+Wie wir dieses Tracking nun technisch mit Amplitude Analytics aufgesetzt haben, warum Amplitude klassischen Tools wie GA4 überlegen ist und wie unser Prototyp live funktioniert, zeigt euch jetzt [Name von Person 2]."
